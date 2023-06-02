@@ -1,5 +1,5 @@
 import { ImageContainer, ProductContainer, ProductDetails } from "@/styles/pages/product"
-import { GetStaticProps } from "next"
+import { GetStaticPaths, GetStaticProps } from "next"
 import { stripe } from "@/lib/stripe"
 import Stripe from "stripe"
 import Image from "next/image"
@@ -36,6 +36,16 @@ export default function Product({product}: ProductProps){
         </ProductContainer>
     )
 }
+
+export const getStaticPaths: GetStaticPaths =async () => {
+    return{
+        paths:[
+            {params:{id:'prod_Nz4amIr2Uufygb'}}
+        ],
+        fallback:'blocking'
+    }
+}
+
 
 export const getStaticProps: GetStaticProps<any,{id:string}> = async ({params}) => {
     const productId = params!.id
